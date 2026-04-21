@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Voice-to-Text | 頂級語音轉文字</title>
+    <meta name="description" content="A premium, AI-powered voice-to-text application supporting Chinese and English.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Voice To Text</h1>
+            <p class="subtitle">智能雙語語音辨識系統</p>
+        </header>
+
+        <div class="controls">
+            <div class="lang-toggle" id="langToggle">
+                <button class="lang-btn active" data-lang="zh-TW">中文 (繁體)</button>
+                <button class="lang-btn" data-lang="en-US">English</button>
+            </div>
+        </div>
+
+        <div class="display-area">
+            <div id="transcript"></div>
+        </div>
+
+        <div class="actions">
+            <button class="record-btn" id="recordBtn" title="點擊開始錄音 / Start Recording">
+                <svg id="micIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <svg id="stopIcon" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                </svg>
+            </button>
+            
+            <div class="status" id="status">準備就緒 / Ready</div>
+            
+            <button class="copy-btn" id="copyBtn">
+                複製文字 / Copy Transcript
+            </button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

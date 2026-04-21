@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 | 新北市 OpenID 認證</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .login-box {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .ntpc-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+        .ntpc-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container login-box">
+        <header>
+            <h1>Tool Hub</h1>
+            <p class="subtitle">請使用新北市 OpenID 登入</p>
+        </header>
+
+        <div class="display-area" style="min-height: auto; margin-bottom: 40px;">
+            <p style="color: var(--text-dim); line-height: 1.6;">
+                為了確保系統安全，本工具箱僅限授權帳號使用。<br>
+                請點擊下方按鈕進行身份驗證。
+            </p>
+        </div>
+
+        <button class="ntpc-btn" id="ntpcLoginBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+            </svg>
+            使用新北市 OpenID 登入
+        </button>
+
+        <p id="errorMsg" style="color: #ef4444; margin-top: 20px; font-weight: 600; display: none;"></p>
+    </div>
+
+    <script>
+        document.getElementById('ntpcLoginBtn').addEventListener('click', function() {
+            const endpoint = 'https://openid.ntpc.edu.tw/openid/';
+            const returnTo = window.location.origin + window.location.pathname.replace('login.html', 'callback.html');
+            const realm = window.location.origin;
+
+            // OpenID 2.0 Parameters
+            const params = {
+                'openid.ns': 'http://specs.openid.net/auth/2.0',
+                'openid.mode': 'checkid_setup',
+                'openid.return_to': returnTo,
+                'openid.realm': realm,
+                'openid.identity': 'http://specs.openid.net/auth/2.0/identifier_select',
+                'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select',
+                'openid.ns.ax': 'http://openid.net/srv/ax/1.0',
+                'openid.ax.mode': 'fetch_contents',
+                'openid.ax.type.account': 'http://axschema.org/contact/postalCode/home',
+                'openid.ax.type.friendly': 'http://axschema.org/namePerson/friendly',
+                'openid.ax.required': 'account,friendly'
+            };
+
+            const queryString = Object.keys(params).map(key => 
+                encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+            ).join('&');
+
+            window.location.href = endpoint + '?' + queryString;
+        });
+
+        // Check for error in URL (returned from callback if failed)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.style.display = 'block';
+            errorMsg.innerText = '登入失敗：' + (urlParams.get('error') === 'unauthorized' ? '您的帳號未獲授權' : '驗證過程發生錯誤');
+        }
+    </script>
+</body>
+</html>

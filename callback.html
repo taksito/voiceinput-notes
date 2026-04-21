@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>驗證中 | Tool Hub</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container" style="text-align: center; padding: 100px 20px;">
+        <h2 id="msg">身分驗證中，請稍候...</h2>
+        <div class="status" id="detail">正在確認您的新北市 OpenID 資訊</div>
+    </div>
+
+    <script>
+        const sessionKey = 'ntpc_toolhub_session';
+        const authorizedUser = 'taksito';
+
+        function processCallback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Check if OpenID mode is 'id_res' (success)
+            const mode = urlParams.get('openid.mode');
+            
+            if (mode === 'id_res') {
+                // Try to find the username in common NTPC OpenID AX fields
+                // NTPC often maps the account name to 'friendly' or 'postalCode/home'
+                const friendlyName = urlParams.get('openid.ax.value.friendly');
+                const accountId = urlParams.get('openid.ax.value.account');
+                
+                console.log('Detected Account:', accountId, 'Friendly:', friendlyName);
+
+                // Check if any of these match 'taksito'
+                if (friendlyName === authorizedUser || accountId === authorizedUser) {
+                    // Success! Create session
+                    const session = {
+                        username: authorizedUser,
+                        timestamp: Date.now(),
+                        fullName: friendlyName || accountId
+                    };
+                    localStorage.setItem(sessionKey, JSON.stringify(session));
+                    window.location.href = 'index.html';
+                } else {
+                    // Unauthorized
+                    window.location.href = 'login.html?error=unauthorized';
+                }
+            } else {
+                // Cancelled or Error
+                window.location.href = 'login.html?error=failed';
+            }
+        }
+
+        // Run after page load
+        window.onload = processCallback;
+    </script>
+</body>
+</html>

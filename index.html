@@ -8,10 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
+    <script src="auth.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
+            <div style="position: absolute; top: 20px; right: 20px;">
+                <button class="btn-secondary" onclick="logout()" style="padding: 8px 16px; font-size: 0.9rem;">登出 / Logout</button>
+            </div>
             <h1>Tool Hub</h1>
             <p class="subtitle">您的智能數位工具箱</p>
         </header>

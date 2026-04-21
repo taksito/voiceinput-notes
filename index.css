@@ -336,8 +336,15 @@ h1 {
 }
 
 @media (max-width: 600px) {
-    .container { padding: 30px 20px; }
-    h1 { font-size: 2rem; }
-    .tool-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr; }
+    body { padding: 10px; }
+    .container { 
+        padding: 30px 15px; 
+        border-radius: 20px;
+    }
+    h1 { font-size: 1.8rem; }
+    .subtitle { font-size: 1rem; }
+    .tool-grid { grid-template-columns: 1fr; gap: 20px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 10px; }
+    .record-btn { width: 80px; height: 80px; } /* Larger for touch */
+    .test-area { height: 250px; }
 }

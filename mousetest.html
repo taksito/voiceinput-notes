@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Speed Test | Tool Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            返回首頁 / Back
+        </a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Mouse Speed Test</h1>
+            <p class="subtitle">30 秒點擊速度挑戰</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">剩餘時間 (Time)</div>
+                <div class="stat-value" id="timer">30</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">點擊次數 (Clicks)</div>
+                <div class="stat-value" id="clickCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">每秒點擊 (CPS)</div>
+                <div class="stat-value" id="cpsValue">0.0</div>
+            </div>
+        </div>
+
+        <div class="test-area" id="testArea">
+            <div class="click-prompt" id="promptText">點擊此處開始測速！<br>Click here to start!</div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-secondary" id="resetBtn">重新開始 / Reset</button>
+            <div class="status" id="resultLabel"></div>
+        </div>
+    </div>
+
+    <script src="mouse.js"></script>
+</body>
+</html>
